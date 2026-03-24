@@ -82,9 +82,15 @@ body {
 
 /* ========== LANG TOGGLE ========== */
 .lang-toggle {
-  position: fixed;
-  top: 20px;
-  right: 24px;
+  .lang-toggle {
+  justify-self: end;
+  display: flex;
+  gap: 4px;
+  background: rgba(13,23,16,0.85);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px;
+}
   z-index: 1000;
   display: flex;
   gap: 4px;
@@ -310,9 +316,9 @@ body {
   border-bottom: 1px solid var(--border);
   padding: 0 28px;
   height: 62px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
 }
 
@@ -718,11 +724,18 @@ tbody tr:nth-child(10) { animation-delay: 0.30s; }
         <span class="header-class-badge" id="headerClass"></span>
       </div>
     </div>
+    
     <div class="search-box">
       <span class="search-icon">🔍</span>
       <input class="search-input" type="text" id="searchInput" oninput="filterTable()">
     </div>
+    
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-kk" onclick="setLang('kk')">ҚАЗ</button>
+      <button class="lang-btn" id="btn-ru" onclick="setLang('ru')">РУС</button>
+    </div>
   </div>
+
 
   <div class="results-content">
     <div class="section-tabs">
@@ -1492,8 +1505,8 @@ function renderFinal() {
 document.getElementById('searchInput').placeholder = I18N[currentLang].placeholder;
 </script>
   <!-- ===== RICKROLL BUTTON ===== -->
-<div id="secret-btn" onclick="triggerRickroll()" title="Баспа!!!">
-  🔴 Баспа
+<div id="secret-btn" onclick="triggerRickroll()">
+  <span data-kk="🔴 Баспа" data-ru="🔴 Не жми">🔴 Баспа</span>
 </div>
 
 <!-- RICKROLL MODAL -->
@@ -1501,7 +1514,7 @@ document.getElementById('searchInput').placeholder = I18N[currentLang].placehold
   <div id="rickroll-box" onclick="event.stopPropagation()">
     <button id="rickroll-close" onclick="closeRickroll()">✕</button>
     <p id="rickroll-text">Айтқан едім... 😈</p>
-    <iframe id="rickroll-frame"
+    <iframe id= "rickroll-frame"
       src=""
       width="100%" height="100%"
       allow="autoplay; encrypted-media"
@@ -1513,23 +1526,30 @@ document.getElementById('searchInput').placeholder = I18N[currentLang].placehold
 <style>
 #secret-btn {
   position: fixed;
-  right: -68px;
+  right: 0;
   top: 50%;
-  transform: translateY(-50%) rotate(-90deg);
-  background: linear-gradient(135deg, #ff4444, #cc0000);
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  background: linear-gradient(180deg, #ff4444, #cc0000);
   color: white;
   font-family: 'Montserrat', sans-serif;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 2px;
-  padding: 10px 18px;
-  border-radius: 8px 8px 0 0;
+  padding: 18px 10px;
+  border-radius: 8px 0 0 8px;
   cursor: pointer;
   z-index: 9999;
-  transition: right 0.3s ease, box-shadow 0.3s;
-  box-shadow: -4px 0 20px rgba(255,68,68,0.4);
+  box-shadow: -4px 0 20px rgba(255,68,68,0.5);
   user-select: none;
   animation: pulse-btn 2s infinite;
+  transition: padding 0.3s;
+}
+#secret-btn:hover {
+  padding: 22px 12px;
+  box-shadow: -6px 0 30px rgba(255,68,68,0.8);
+}
 }
 #secret-btn:hover {
   right: -60px;
